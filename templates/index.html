@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema CRUD - Usuários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-users"></i> Sistema de Gerenciamento de Usuários</h1>
+            <p>CRUD completo com Python, Flask, MySQL e JavaScript</p>
+        </header>
+
+        <div class="content">
+            <!-- Botão para abrir modal de novo usuário -->
+            <div class="add-button-container">
+                <button class="btn btn-primary" id="open-add-modal">
+                    <i class="fas fa-plus"></i> Novo Usuário
+                </button>
+            </div>
+
+            <!-- Lista de usuários -->
+            <div class="list-container">
+                <h2>Lista de Usuários</h2>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Buscar por nome ou email...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div id="users-list" class="users-list">
+                    <div class="loading">Carregando usuários...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Novo/Editar Usuário -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Novo Usuário</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+                
+                <div class="form-group">
+                    <label for="nome">Nome *</label>
+                    <input type="text" id="nome" name="nome" required maxlength="100">
+                    <small class="error-message" id="nome-error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required maxlength="100">
+                    <small class="error-message" id="email-error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" maxlength="15">
+                    <small class="error-message" id="telefone-error"></small>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="close-modal-btn">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação de exclusão -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar exclusão</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>Tem certeza que deseja excluir este usuário?</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="confirm-delete">Excluir</button>
+                <button class="btn btn-secondary" id="cancel-delete">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
