@@ -21,9 +21,17 @@ db_config = {
 }
 
 def get_db_connection():
-    """Estabelece conexão com o banco de dados"""
+    """Estabelece conexão com o banco de dados MySQL"""
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(
+            host=os.getenv('DB_HOST', 'localhost'),
+            user=os.getenv('DB_USER', 'root'),
+            password=os.getenv('DB_PASSWORD', ''),
+            database=os.getenv('DB_NAME', 'crud_sistema'),
+            port=int(os.getenv('DB_PORT', 3306)),
+            ssl_disabled=False,  # Força SSL
+            ssl_ca=None  # Usa certificado padrão
+        )
         return connection
     except Error as e:
         print(f"Erro ao conectar ao MySQL: {e}")
